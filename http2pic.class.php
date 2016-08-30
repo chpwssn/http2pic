@@ -108,6 +108,11 @@ class http2pic
 		else
 			$this->params['url'] = rawurldecode($_GET['url']);
 		
+		//Check to see if the user included the protocol, if not assume HTTP
+		if (preg_match("/^https?:\/\//i",$this->params['url']) == 0) {
+			$this->params['url'] = "http://".$this->params['url'];
+		}
+		
 			//if the url is not valid or not responding, show onfail image and leave
 		if(!$this->isURLValid($this->params['url']) || !(($reachableResult = $this->isURLReachable($this->params['url'])) == 0))
 		{
